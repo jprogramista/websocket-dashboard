@@ -19,6 +19,17 @@
   WS req from start: <span>{{systemInfo.wsCounter}}</span>
 </div>
 
+<div *ngIf="initialData && initialData.currency">
+  <div>
+    Base: {{initialData.currency.base}} Rates:
+    <ul>
+      <li *ngFor="let rate of initialData.currency.rates">
+        {{rate.name}} - {{rate.value}}
+      </li>
+    </ul>
+  </div>
+</div>
+
 <hr />
 <h3>Alerts:</h3>
 <div *ngFor="let alert of alerts">

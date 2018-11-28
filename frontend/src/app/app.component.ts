@@ -4,7 +4,8 @@ import * as SockJS from 'sockjs-client';
 import {SystemInfo} from './model/systemInfo';
 import {Alert} from './model/alert';
 import {AlertMessageService} from './service/alertMessage.service';
-import { environment } from '../environments/environment';
+import {environment} from '../environments/environment';
+import {InitialService} from './service/initial.service';
 
 
 @Component({
@@ -17,15 +18,23 @@ export class AppComponent {
   private serverUrl = environment.backend + '/info';
   private stompClient;
   private alertMessageService: AlertMessageService;
+  private initialService: InitialService;
 
   @Output() systemInfo = new SystemInfo();
+  @Output() initialData;
+
   alerts = [];
   alert = new Alert('', '');
 
-
-  constructor(alertMessageService: AlertMessageService) {
-    this.initializeWebSocketConnection();
+  constructor(alertMessageService: AlertMessageService, initialService: InitialService) {
     this.alertMessageService = alertMessageService;
+    this.initialService = initialService;
+    this.init();
+  }
+
+  init() {
+    this.initializeWebSocketConnection();
+    this.getInitialData();
   }
 
   initializeWebSocketConnection() {
@@ -52,7 +61,19 @@ export class AppComponent {
           that.alerts.push(obj);
         }
       });
+      that.stompClient.subscribe('/topic/currencyInfo', (message) => {
+        if (message.body) {
+          if (!that.initialData) {
+            that.initialData = new Map();
+          }
+          that.initialData['currency'] = JSON.parse(message.body);
+        }
+      });
     });
+  }
+
+  getInitialData() {
+       this.initialService.getInitialData().subscribe(value => { this.initialData = value; });
   }
 
   sendMsg() {

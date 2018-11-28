@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import {AlertMessageService} from './service/alertMessage.service';
+import {InitialService} from './service/initial.service';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,6 @@ import {AlertMessageService} from './service/alertMessage.service';
     HttpClientModule
   ],
   bootstrap: [AppComponent],
-  providers: [AlertMessageService]
+  providers: [AlertMessageService, InitialService]
 })
 export class AppModule { }
