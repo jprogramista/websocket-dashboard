@@ -1,0 +1,17 @@
+server:
+  port: 18000
+
+logging:
+  level:
+    com.example.dashboard: info
+
+meters:
+  system: linux
+  cpu:
+    command: "ps -A -o %cpu | awk '{s+=$1} END {print s \"%\"}'"
+  mem:
+    command: "free | grep Mem: | awk '{print $3}'"
+  swap:
+    command: "free | grep Swap:"
+  disk:
+    command: "df -h | grep /$ | awk '{print $5}'"

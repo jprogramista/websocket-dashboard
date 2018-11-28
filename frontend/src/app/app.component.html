@@ -1,0 +1,31 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<h1>
+  Angular 2 WebSockets + Spring Boot Backend
+</h1>
+
+<div>
+  CPU Usage: <span>{{systemInfo.cpuUsage}}</span>
+</div>
+<div>
+  Memory Usage: <span>{{systemInfo.memUsage}}</span>
+</div>
+<div>
+  Swap All: <span>{{systemInfo.swap}}</span>
+</div>
+<div>
+  Swap Usage: <span>{{systemInfo.swapUsage}}</span>
+</div>
+<div>
+  WS req from start: <span>{{systemInfo.wsCounter}}</span>
+</div>
+
+<hr />
+<h3>Alerts:</h3>
+<div *ngFor="let alert of alerts">
+  <div>Title: {{alert.title}}</div>
+  <div>Message: {{alert.message}}</div>
+</div>
+<hr />
+<div><input type="text" [(ngModel)]="alert.title" /></div>
+<div><textarea [(ngModel)]="alert.message"></textarea></div>
+<button (click)="sendMsg()">Send Message</button>
