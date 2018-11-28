@@ -1,4 +1,4 @@
-####Development server run
+#### Development server run
 
 Backend:
 ```
@@ -11,7 +11,7 @@ cd frontend
 ng serve
 ```
 
-####REST endpoint for alerts
+#### REST endpoint for alerts
 ```
 http POST :8080/alert title=Title message=message
 ```
